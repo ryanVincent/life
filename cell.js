@@ -15,10 +15,15 @@ export default class Cell {
 	draw(context, automata) {
 		const x = this.x*this.radius;
 		const y = this.y*this.radius;
-		const currentFillStyle = context.fillStyle;
 
-		context.fillStyle = this.state === 'DEAD' ? 'black' : 'white';
-		context.fillRect(x,y,this.radius,this.radius);
-		context.fillStyle = currentFillStyle;
+		context.strokeStyle = 'white';
+
+		if (this.state !== this.previousState) {
+			if (this.state === 'DEAD') {
+				context.strokeRect(x,y,this.radius,this.radius);
+			} else {
+				context.clearRect(x,y,this.radius,this.radius)
+			}
+		}
 	}
 }

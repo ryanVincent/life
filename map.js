@@ -18,6 +18,7 @@ export default class Map {
 	constructor(height, width, cellRadius) {
 		this.height = height;
 		this.width = width;
+		this.cellRadius = cellRadius;
 		this.map = init(height, width, cellRadius);
 	}
 
@@ -36,11 +37,15 @@ export default class Map {
 		return neighbourhood;
 	}
 
-	draw(context) {
+	clear(context) {
+
+	}
+
+	draw(context, grad) {
 		this.map.forEach(row =>
 			row.forEach(cell => {
 				const neighbourhood = this.getNeighbourhood(cell);
-				cell.setState(gameOfLife(neighbourhood))
+				cell.setState(gameOfLife(neighbourhood));
 				cell.draw(context);
 			}
 		));
