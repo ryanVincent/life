@@ -1,24 +1,69 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
 		<style>
-			canvas {
+			h1 {
+				font-family: 'Pacifico', cursive;
+				text-align: center;
+			}
+
+			.container {
+				margin: 0 auto;
+				width: 600px;
+			}
+
+			canvas#world {
 					position: absolute;
+					top: 0;
+			}
+
+			.canvas-container {
+					position: relative;
+			}
+
+			.control-item {
+					display: inline-block;
+			}
+
+			ul#automata {
+					list-style: none;
+					padding: 5px 10px;
+					border: 1px solid #d4d2d2;
+			}
+
+			#automata li {
+					display: inline-block;
+					margin-right: 10px;
 			}
 		</style>
 	</head>
 	<body>
-		<div>
-			<button id="start">start</button>
-			<button id="stop">stop</button>
-			<button id="step">step</button>
-			<button id="clear">clear</button>
-			<label>fps: <input type="number" id="fps" /></label>
-			<ul id="automata"></ul>
+		<div class="container">
+				<h1>Cellular Automata</h1>
+				<div class="canvas-container">
+						<canvas id="background" width="600px" height="600px"></canvas>
+						<canvas id="world" width="600px" height="600px"></canvas>
+				</div>
+				<div class="controls">
+						<div class="control-item">
+								<button id="start">start</button>
+						</div>
+						<div class="control-item">
+							<button id="stop">stop</button>
+						</div>
+						<div class="control-item">
+							<button id="step">step</button>
+						</div>
+						<div class="control-item">
+							<button id="clear">clear</button>
+						</div>
+						<div class="control-item">
+							<label>fps: <input type="number" id="fps" /></label>
+						</div>
+					</div>
+					<ul id="automata"></ul>
 		</div>
-		<canvas id="background" width="600" height="600"></canvas>
-		<canvas id="world" width="600" height="600"></canvas>
-		<
 	</body>
 	<script type="module" src="life.js"></script>
 </html>

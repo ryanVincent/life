@@ -1,15 +1,15 @@
-import { randomata, gameOfLife } from './automata.js'
+import { randomata, gameOfLife, gameOfDeath} from './automata.js'
 
 export default {
 	renderer: {
 		fps: 27,
 	},
 	map: {
-		width: 128,
-		height: 128,
+		width: 256,
+		height: 256,
 		cellWidth: 4,
 	},
-	gradient: ['#fc4a1a', '#f7b733'],
+	gradient: ['#fc4a1a', 'orange'],
 	automatas:  {
 		randomata: {
 			name: 'randomata',
@@ -18,6 +18,10 @@ export default {
 		gol: {
 			name: 'game of life',
 			fn: gameOfLife,
+		},
+		god: {
+			name: 'game of death',
+			fn: gameOfDeath
 		}
 	}
 }

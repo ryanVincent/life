@@ -15,8 +15,8 @@ const init = (config) => {
 	const AutomataItem = ({ name, id }) => {
 		const li = document.createElement("li")
 		li.innerHTML = `<label>
-											${name}
 											<input type="radio" name="automata" id="${id}" />
+											${name}
 										</label>`
 		return li
 	};

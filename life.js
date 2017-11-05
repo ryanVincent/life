@@ -12,7 +12,7 @@ const bContext = background.getContext("2d");
 const setBackground = (height, width, cellRadius) => {
 	var gradient=bContext.createLinearGradient(width*cellRadius/2, 0,width*cellRadius/2, height*cellRadius);
 	gradient.addColorStop(0,"#fc4a1a");
-	gradient.addColorStop(1,"#f7b733");
+	gradient.addColorStop(1,"orange");
 	bContext.fillStyle=gradient;
 	bContext.fillRect(0,0, width*cellRadius, height*cellRadius);
 }
