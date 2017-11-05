@@ -5,11 +5,14 @@ const init = (config) => {
 		stop: () => {},
 		step: () => {},
 		fps:() => {},
-		automata:() => {}
+		automata:() => {},
+		draw:() => {},
+		clear:() => {}
 	}
 
+	let drawing = false;
+
 	const AutomataItem = ({ name, id }) => {
-		console.log(name, id);
 		const li = document.createElement("li")
 		li.innerHTML = `<label>
 											${name}
@@ -20,7 +23,6 @@ const init = (config) => {
 
 	Object.keys(config.automatas).forEach((id) => {
 		const automata = config.automatas[id]
-		console.log(automata);
 		document
 		.getElementById('automata')
 		.appendChild(AutomataItem({ ...automata, id}))
@@ -40,8 +42,23 @@ const init = (config) => {
 	.addEventListener('click', () => handlers.step())
 
 	document
+	.getElementById('clear')
+	.addEventListener('click', () => handlers.clear())
+
+	document
 	.getElementById('fps')
 	.addEventListener('keyup', e => handlers.fps(e.target.value))
+
+	const world = document
+	.getElementById('world');
+
+	world.addEventListener('mousedown',() => drawing = true)
+	world.addEventListener('mousemove', e =>  {
+		const x = Math.floor(e.offsetX / config.map.cellWidth);
+		const y = Math.floor(e.offsetY / config.map.cellWidth);
+		if (drawing) handlers.draw(x,y);
+	});
+	world.addEventListener('mouseup',() => drawing = false)
 
 
 	return {

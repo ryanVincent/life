@@ -19,7 +19,7 @@ export default class Cell {
 		context.strokeStyle = 'white';
 
 		if (this.state !== this.previousState) {
-			if (this.state === 'DEAD') {
+			if (this.state === 'ALIVE') {
 				context.strokeRect(x,y,this.radius,this.radius);
 			} else {
 				context.clearRect(x,y,this.radius,this.radius)

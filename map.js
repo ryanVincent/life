@@ -5,7 +5,7 @@ export const init = (frameHeight, frameWidth, cellRadius) => {
 	for(let y= 0; y < frameHeight; y++) {
 		map[y] = [];
 		for(let x = 0; x < frameWidth; x++) {
-			const state = Math.random() > 0.5 ? 'ALIVE' : 'DEAD';
+			const state = 'DEAD';
 			const cell = new Cell(x, y, cellRadius, state);
 			map[y].push(cell);
 		}
@@ -37,7 +37,7 @@ export default class Map {
 	}
 
 	clear(context) {
-
+		context.clearRect(0,0, this.width*this.cellRadius, this.height*this.cellRadius);
 	}
 
 	draw(context, automata) {
