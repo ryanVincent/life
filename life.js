@@ -17,44 +17,52 @@ const setBackground = (height, width, cellRadius) => {
 	bContext.fillRect(0,0, width*cellRadius, height*cellRadius);
 }
 
-let lastFrame;
-let paused = false;
-let frameInterval =  1000 / config.renderer.fps;
+let lastFrame
+let paused = false
+let frameInterval =  1000 / config.renderer.fps
+let automata = config.automatas.gol
+console.log(config)
 
 const animate = (map) => {
-	let now = Date.now();
-	let elapsed = now - lastFrame;
-	if (!paused) window.requestAnimationFrame(() => animate(map));
+	let now = Date.now()
+	let elapsed = now - lastFrame
+	if (!paused) window.requestAnimationFrame(() => animate(map))
 
 	if (elapsed > frameInterval) {
-		lastFrame = now - (elapsed % frameInterval);
-		drawFrame(context, map);
+		lastFrame = now - (elapsed % frameInterval)
+		console.log(automata);
+		drawFrame(context, map, automata.fn)
 	}
 }
 
-const map = new Map(128, 128, 4);
-setBackground(128, 128, 4);
+const map = new Map(128, 128, 4)
+setBackground(128, 128, 4)
 
 const start = () => {
-	paused = false;
-	lastFrame = Date.now();
-	map.clear(context);
-	animate(map);
+	paused = false
+	lastFrame = Date.now()
+	map.clear(context)
+	animate(map)
 }
 
 const stop = () => {
-	paused = true;
+	paused = true
 }
 
 const step = () => {
-	paused = true;
-	drawFrame(context, map);
+	paused = true
+	drawFrame(context, map, automata)
 }
 
-const controls = initControls();
-controls.on('start', start);
-controls.on('stop', stop);
-controls.on('step', step);
+const controls = initControls(config)
+controls.on('start', start)
+controls.on('stop', stop)
+controls.on('step', step)
+
 controls.on('fps', (fps) => {
-	frameInterval = 1000 / fps;
-}, config.renderer.fps);
+	frameInterval = 1000 / fps
+}, config.renderer.fps)
+
+controls.on('automata', (id) => {
+	automata = config.automatas[id]
+}, 'gol')

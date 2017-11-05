@@ -1,4 +1,4 @@
-export const randomata = state => {
+export const randomata = () => state => {
 	return Math.random() > 0.5 ? 'ALIVE' : 'DEAD';
 }
 

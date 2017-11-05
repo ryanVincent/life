@@ -1,5 +1,4 @@
 import Cell from './cell.js';
-import { gameOfLife } from './automata.js';
 
 export const init = (frameHeight, frameWidth, cellRadius) => {
 	let map = [];
@@ -41,11 +40,11 @@ export default class Map {
 
 	}
 
-	draw(context, grad) {
+	draw(context, automata) {
 		this.map.forEach(row =>
 			row.forEach(cell => {
 				const neighbourhood = this.getNeighbourhood(cell);
-				cell.setState(gameOfLife(neighbourhood));
+				cell.setState(automata(neighbourhood));
 				cell.draw(context);
 			}
 		));
