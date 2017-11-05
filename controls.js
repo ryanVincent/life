@@ -45,18 +45,24 @@ const init = (config) => {
 	.getElementById('clear')
 	.addEventListener('click', () => handlers.clear())
 
+	console.log(document.getElementById('fps'));
 	document
 	.getElementById('fps')
-	.addEventListener('keyup', e => handlers.fps(e.target.value))
+	.addEventListener('change', e => handlers.fps(e.target.value))
 
 	const world = document
 	.getElementById('world');
 
-	world.addEventListener('mousedown',() => drawing = true)
+	world.addEventListener('mousedown', e => {
+		const x = Math.floor(e.offsetX / config.map.cellWidth)
+		const y = Math.floor(e.offsetY / config.map.cellWidth)
+		drawing = true
+		handlers.draw(x,y)
+	})
 	world.addEventListener('mousemove', e =>  {
-		const x = Math.floor(e.offsetX / config.map.cellWidth);
-		const y = Math.floor(e.offsetY / config.map.cellWidth);
-		if (drawing) handlers.draw(x,y);
+		const x = Math.floor(e.offsetX / config.map.cellWidth)
+		const y = Math.floor(e.offsetY / config.map.cellWidth)
+		if (drawing) handlers.draw(x,y)
 	});
 	world.addEventListener('mouseup',() => drawing = false)
 
@@ -64,6 +70,7 @@ const init = (config) => {
 	return {
 		on: (type, fn, initialValue) => {
 			handlers[type] = fn
+			console.log(handlers, type, fn);
 			if (type === 'fps') document.getElementById('fps').value = initialValue
 			if (type === 'automata') document.getElementById(initialValue).checked = true
 		}

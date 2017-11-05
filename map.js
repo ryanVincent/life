@@ -22,13 +22,13 @@ export default class Map {
 	}
 
 	getNeighbourhood(cell) {
-		const neighbourhood = [];
-		const columnLimit = this.map.length - 1;
-		const rowLimit = this.map[0].length - 1;
+		const neighbourhood = []
+		const columnLimit = this.map.length - 1
+		const rowLimit = this.map[0].length - 1
 		for (let i = Math.max(0, cell.x - 1); i <= Math.min(cell.x+1, rowLimit); i++) {
 			for (let j = Math.max(0, cell.y - 1); j <= Math.min(cell.y+1, columnLimit); j++) {
 				if (i !== cell.x || j !== cell.y) {
-					neighbourhood.push(this.map[j][i]);
+					neighbourhood.push(this.map[j][i])
 				}
 			}
 		}
@@ -37,16 +37,30 @@ export default class Map {
 	}
 
 	clear(context) {
-		context.clearRect(0,0, this.width*this.cellRadius, this.height*this.cellRadius);
+		this.map.forEach(row =>
+			row.forEach(cell => {
+				cell.state = 'DEAD';
+			}
+		))
+	}
+
+	getUpdates(automata) {
+		const updates = []
+		this.map.forEach(row =>
+			row.forEach(cell => {
+				const neighbourhood = this.getNeighbourhood(cell)
+				const state = automata(neighbourhood)(cell.state)
+				if (state !== cell.state) updates.push({ cell, state})
+			}
+		))
+		return updates
 	}
 
 	draw(context, automata) {
-		this.map.forEach(row =>
-			row.forEach(cell => {
-				const neighbourhood = this.getNeighbourhood(cell);
-				cell.setState(automata(neighbourhood));
-				cell.draw(context);
-			}
-		));
+		this.getUpdates(automata)
+		.forEach(({ cell, state }) => {
+			cell.state = state
+			cell.draw(context)
+		})
 	}
 }

@@ -3,7 +3,7 @@ export const randomata = () => state => {
 }
 
 export const gameOfLife = neighborhood => state => {
-	const livingNeighbours = neighborhood.filter(cell => cell.previousState === 'ALIVE');
+	const livingNeighbours = neighborhood.filter(cell => cell.state === 'ALIVE');
 	if (state === 'DEAD' && livingNeighbours.length === 3) return 'ALIVE';
 	if (state=== 'ALIVE' && (livingNeighbours.length === 2 || livingNeighbours.length === 3)) return 'ALIVE';
 	if (state === 'ALIVE' && livingNeighbours.length > 3) return 'DEAD'

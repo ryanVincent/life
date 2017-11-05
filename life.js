@@ -39,7 +39,6 @@ setBackground(config.map.width, config.map.height, config.map.cellWidth)
 const start = () => {
 	paused = false
 	lastFrame = Date.now()
-	map.clear(context)
 	animate(map)
 }
 
@@ -54,6 +53,7 @@ const step = () => {
 
 const clear = () => {
 	map.clear(context);
+	map.draw();
 }
 
 const controls = initControls(config)
@@ -72,9 +72,8 @@ controls.on('automata', (id) => {
 }, 'gol')
 
 controls.on('draw', (x,y) => {
-	console.log(x, y, automata);
 	const cell = map.map[y][x]
-	cell.state = 'ALIVE';
-	cell.draw(context)
+	cell.state ='ALIVE';
+	cell.draw(context);
 })
 
