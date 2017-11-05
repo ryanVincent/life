@@ -19,14 +19,15 @@ const setBackground = (height, width, cellRadius) => {
 
 let lastFrame;
 let paused = false;
+let frameInterval =  1000 / config.renderer.fps;
 
 const animate = (map) => {
 	let now = Date.now();
 	let elapsed = now - lastFrame;
 	if (!paused) window.requestAnimationFrame(() => animate(map));
 
-	if (elapsed > config.renderer.frameInterval) {
-		lastFrame = now - (elapsed % config.renderer.frameInterval);
+	if (elapsed > frameInterval) {
+		lastFrame = now - (elapsed % frameInterval);
 		drawFrame(context, map);
 	}
 }
@@ -54,3 +55,6 @@ const controls = initControls();
 controls.on('start', start);
 controls.on('stop', stop);
 controls.on('step', step);
+controls.on('fps', (fps) => {
+	frameInterval = 1000 / fps;
+}, config.renderer.fps);

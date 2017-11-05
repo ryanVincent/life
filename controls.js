@@ -3,7 +3,8 @@ const init = () => {
 	let handlers = {
 		start: () => {},
 		stop: () => {},
-		step: () => {}
+		step: () => {},
+		fps:() => {},
 	}
 
 	document
@@ -24,8 +25,18 @@ const init = () => {
 		handlers.step();
 	});
 
+	document
+	.getElementById('fps')
+	.addEventListener('keyup', e => {
+		handlers.fps(e.target.value);
+	})
+
+
 	return {
-		on: (type, fn) => handlers[type] = fn
+		on: (type, fn, initialValue) => {
+			handlers[type] = fn;
+			if (type === 'fps') document.getElementById('fps').value = initialValue;
+		}
 	}
 }
 
